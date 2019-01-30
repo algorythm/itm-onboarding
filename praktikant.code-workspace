@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "ClientApp"
+    },
+    {
+      "path": "Controllers"
+    },
+    {
+      "path": "Data"
+    },
+    {
+      "path": "Models"
+    },
+    {
+      "path": "Views"
+    },
+    {
+      "path": "wwwroot"
+    }
+  ],
+  "settings": {}
+}
