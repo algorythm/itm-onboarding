@@ -3,7 +3,7 @@ pipelines:
   default:
     - step:
         script:
-          - cd ./src ; npm install ; cd -
+          - cd ./src ; npm i --producton ; cd -
           - dotnet restore
           - dotnet build
 
@@ -11,7 +11,7 @@ pipelines:
     master:
       - step:
           script:
-            - cd ./src ; npm install ; cd -
+            - cd ./src ; npm i --production ; cd -
             - dotnet restore
             - dotnet publish src/todoProject.csproj -c Release -o $PWD/publish-out
             - bash deploy-to-azure itm-prak-anders publish-out
