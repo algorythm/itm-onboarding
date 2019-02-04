@@ -1,0 +1,17 @@
+image: itminds/itm-pipelines-build-images:dotnetcore-21
+pipelines:
+  default:
+    - step:
+        script:
+          - cd ./src ; npm install ; cd -
+          - dotnet restore
+          - dotnet build
+
+  branches:
+    master:
+      - step:
+          script:
+            - cd ./src ; npm install ; cd -
+            - dotnet restore
+            - dotnet publish src/todoProject.csproj -c Release -o $PWD/publish-out
+            - bash deploy-to-azure itm-prak-anders publish-out
