@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using todoProject.Controllers;
 using todoProject.Data;
+using todoProject.Services;
 
 namespace todoProject
 {
@@ -52,6 +53,7 @@ namespace todoProject
                 });
             
             services.AddMvc();
+            services.ConfigureEntityExtensions();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
