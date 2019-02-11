@@ -6,6 +6,7 @@ import FetchData from './components/Examples/FetchData.vue';
 import Books from './components/Books/Books.vue';
 import Register from './components/Account/Register.vue';
 import Login from './components/Account/Login.vue';
+import Todos from './components/Todos/Todos.vue';
 
 export default new VueRouter({
     mode: 'history',
@@ -14,6 +15,7 @@ export default new VueRouter({
         { path: '/counter', component: Counter },
         { path: '/fetchdata', component: FetchData },
         { path: '/books', component: Books },
+        { path: '/todos', component: Todos },
         { path: '/register', component: Register },
         { path: '/login', component: Login }
     ]

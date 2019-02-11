@@ -45,7 +45,12 @@
                         </router-link>
                     </li>
                     <li v-if="isLoggedIn">
-                        <a @click="logout" class="glyphicon glyphicon-th-list"> Logout</a>
+                        <router-link to="/todos">
+                            <span class="glyphicon glyphicon-th-list"></span> Todos
+                        </router-link>
+                    </li>
+                    <li v-if="isLoggedIn">
+                        <a @click="logout"><span class="glyphicon glyphicon-th-list"></span> Logout</a>
                     </li>
                     <bookfavorites></bookfavorites>
                 </ul>
