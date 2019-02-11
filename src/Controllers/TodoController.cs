@@ -26,12 +26,6 @@ namespace todoProject.Controllers
             return Ok(await _todoService.GetById(id));
         }
 
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok(new TodoListDto { Id = 2, Title = "Create the final API", Completed = false});
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateTodoAsync([FromBody] TodoListDto dto)
         {
