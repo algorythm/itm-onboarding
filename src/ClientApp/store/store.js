@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 import BookStore from './bookStore';
 import AccountStore from './accountStore';
+import TodoStore from './todoStore';
 
 export default new Vuex.Store({
     state: {
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     },
     modules: {
         books: BookStore,
-        account: AccountStore
+        account: AccountStore,
+        todos: TodoStore,
     }
 });
