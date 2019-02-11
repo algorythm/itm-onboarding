@@ -35,6 +35,11 @@ namespace todoProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTodoAsync([FromBody] TodoListDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("The given model is incorrectly formatted.");
+            }
+
             var todo = await _todoService.CreateTodoAsync(dto);
 
             if (todo == null)
