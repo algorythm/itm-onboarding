@@ -18,12 +18,9 @@ export default {
         }
     },
     mounted() {
-        console.log("Fetching todos");
         fetch("/api/todo")
             .then(res => res.json())
             .then(data => {
-                console.log("DONE!")
-                console.log("Loaded todos from API", data);
                 this.todos = data;
             });
     }
