@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using todoProject.Data;
 using todoProject.Data.Models;
@@ -9,53 +10,38 @@ namespace todoProject.Services.TodoServices
     public class TodoService : ITodoService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TodoService(ApplicationDbContext context)
+        public TodoService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<TodoListDto> CreateTodoAsync(TodoListDto todo)
         {
-            var todoToCreate = new Todo
-            {
-                Title = todo.Title,
-                Done = todo.Completed
-            };
+            var todoToCreate = _mapper.Map<Todo>(todo);
 
             await _context.AddAsync(todoToCreate);
             await _context.SaveChangesAsync();
 
-            return new TodoListDto
-            {
-                Id = todoToCreate.Id,
-                Title = todoToCreate.Title,
-                Completed = todoToCreate.Done
-            };
+            return _mapper.Map<TodoListDto>(todoToCreate);
         }
 
         public async Task<TodoListDto[]> GetAllTodosAsync()
         {
-            return await _context.Todos
-                .Select(t => new TodoListDto
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Completed = t.Done
-                })
+            var todos = await _context.Todos
                 .ToArrayAsync();
+            
+            return _mapper.Map<TodoListDto[]>(todos);
         }
 
         public async Task<TodoListDto> GetById(int id)
         {
-            return await _context.Todos
-                .Select(t => new TodoListDto
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Completed = t.Done
-                })
-                .FirstOrDefaultAsync(t => t.Id == id);
+            var todo = await _context.Todos
+                .FindAsync(id);
+            
+            return _mapper.Map<TodoListDto>(todo);
         }
     }
 }
