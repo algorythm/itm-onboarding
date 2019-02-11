@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using todoProject.Controllers;
 using todoProject.Data;
+using todoProject.Services;
 
 namespace todoProject
 {
@@ -52,6 +54,16 @@ namespace todoProject
                 });
             
             services.AddMvc();
+            
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.ConfigureEntityExtensions();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
