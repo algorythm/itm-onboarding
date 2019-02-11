@@ -2,9 +2,11 @@
 <div>
     <h1>Todos</h1>
     <div class="loading" v-if="todos.length === 0">Loading todos...</div>
-    <div class="todos" v-if="todos.length > 0">
-        <ul class="todo-container" v-for="todo in todos" :key="todo.id">
-            <li>{{todo.title}}</li>
+    <div class="todobox" v-if="todos.length > 0">
+        <ul class="todo-list">
+            <li class="todo-item" v-for="todo in todos" :key="todo.id">
+                <p>{{todo.title}}</p>
+            </li>
         </ul>
     </div>
 </div>
@@ -12,17 +14,21 @@
 
 <script>
 export default {
-    data() {
-        return {
-            todos: []
+    mounted() {
+        this.$store.dispatch("todos/refresh");
+    },
+    computed: {
+        todos() {
+            return this.$store.state.todos.todos;
         }
     },
-    mounted() {
-        fetch("/api/todo")
-            .then(res => res.json())
-            .then(data => {
-                this.todos = data;
-            });
+    methods: {
+        refreshTodos() {
+            this.$store.dispatch("todos/refresh");
+        },
+        addTodo() {
+            this.$store.dispatch("todos/add", todo);
+        },
     }
 }
 </script>
