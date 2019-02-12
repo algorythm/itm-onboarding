@@ -8,6 +8,7 @@ namespace todoProject.Services
         public static void ConfigureEntityExtensions(this IServiceCollection services)
         {
             services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<IUserResolver, UserResolver>();
         }
     }
 }
