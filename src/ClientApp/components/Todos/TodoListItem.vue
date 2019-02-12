@@ -1,14 +1,4 @@
 <template>
-  <!-- <div class="todo-item">
-    <div class="content">
-      <h3>{{todo.title}}</h3>
-      <p class="subtitle">This is the subtitle</p>
-    </div>
-    <div class="button-group">
-        <button class="btn btn-info">Complete</button>
-        <button>Remove</button>
-    </div>
-  </div> -->
   <div class="todo-item" :class="completedClass(todo)">
     <div class="content">
       <p class="title">{{todo.title}}</p>
@@ -29,40 +19,40 @@
 export default {
   props: ["todo"],
   methods: {
-      removeTodo(todo) {
-          this.$store.dispatch("todos/remove", todo);
-      },
-      completedClass(todo) {
-          return todo.completed ? "todo-item-completed" : "";
-      },
-      completeTodo(todo) {
-          this.$store.dispatch("todos/complete", todo);
-      },
+    removeTodo(todo) {
+      this.$store.dispatch("todos/remove", todo);
+    },
+    completedClass(todo) {
+      return todo.completed ? "todo-item-completed" : "";
+    },
+    completeTodo(todo) {
+      this.$store.dispatch("todos/complete", todo);
+    }
   },
   computed: {
-      todos() {
-          return this.$store.state.todos.todos;
-      },
-      newTodoItem() {
-          return { title: this.newTodoTitle, completed: false, };
-      }
+    todos() {
+      return this.$store.state.todos.todos;
+    },
+    newTodoItem() {
+      return { title: this.newTodoTitle, completed: false };
+    }
   },
   data() {
-      return {
-          newTodoTitle: "",
-      };
+    return {
+      newTodoTitle: ""
+    };
   }
 };
 </script>
 
 <!-- TODO: Why can't this style tag be scoped?? -->
 <!-- When it's scoped, the button gets placed on the next line -->
-<style> 
+<style>
 .todo-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: solid 1px rgba(0, 0, 0, .12);
+  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
 }
 
 .todo-item .content {
@@ -86,7 +76,7 @@ export default {
 }
 
 .todo-item:hover {
-  background-color: rgba(0, 0, 0, .12);
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 .todo-item .button-group button {
@@ -102,7 +92,7 @@ export default {
 }
 
 .todo-item-completed {
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .todo-item-completed p.title {
