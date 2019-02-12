@@ -55,5 +55,17 @@ namespace todoProject.Services.TodoServices
 
             return _mapper.Map<TodoListDto>(todo);
         }
+
+        public async Task<TodoListDto> UpdateTodoAsync(TodoListDto updatedTodo)
+        {
+            var originalTodo = await _context.Todos.FindAsync(updatedTodo.Id);
+
+            if (originalTodo == null) return null;
+
+            originalTodo.Title = updatedTodo.Title;
+            originalTodo.Done  = updatedTodo.Completed;
+
+            return _mapper.Map<TodoListDto>(originalTodo);
+        }
     }
 }

@@ -50,5 +50,42 @@ namespace todoProject.Controllers
             await _todoService.DeleteTodoAsync(id);
             return NoContent();
         }
+
+        [HttpPatch("{id}/complete")]
+        public async Task<IActionResult> CompleteTodo(int id)
+        {
+            var todo = await _todoService.GetById(id);
+
+            if (todo == null) 
+            {
+                return NotFound();
+            }
+
+            todo.Completed = true;
+
+            var updatedTodo = await _todoService.UpdateTodoAsync(todo);
+
+            return Ok(updatedTodo);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTodoAsync(int id, [FromBody] TodoListDto todo)
+        {
+            var originalTodo = await _todoService.GetById(id);
+
+            if (originalTodo == null)
+            {
+                return NotFound();
+            }
+
+            if (id != todo.Id)
+            {
+                return BadRequest($"The given id does not match the id of the given todo ({id} != {todo.Id}).");
+            }
+
+            var updatedTodo = await _todoService.UpdateTodoAsync(todo);
+            
+            return Ok(updatedTodo);
+        }
     }
 }
