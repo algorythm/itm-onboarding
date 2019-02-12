@@ -11,11 +11,13 @@ namespace todoProject.Services.TodoServices
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserResolver _userResolver;
 
-        public TodoService(ApplicationDbContext context, IMapper mapper)
+        public TodoService(ApplicationDbContext context, IMapper mapper, IUserResolver userResolver)
         {
             _context = context;
             _mapper = mapper;
+            _userResolver = userResolver;
         }
 
         public async Task<TodoListDto> CreateTodoAsync(TodoListDto todo)
