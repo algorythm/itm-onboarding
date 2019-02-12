@@ -29,7 +29,7 @@ export default {
              });
         },
         add(context, todo) {
-            VueInstance.axios.push('/api/todo/', todo).then(response => {
+            VueInstance.axios.post('/api/todo/', todo).then(response => {
                 context.commit('add', response.data);
             });
         },
