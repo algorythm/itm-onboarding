@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using todoProject.Services.TodoServices;
 
 namespace todoProject.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class TodoController : Controller
     {
