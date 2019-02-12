@@ -35,12 +35,10 @@ export default {
       this.editMode = !this.editMode;
     },
     saveChanges() {
-      console.log("save changed", this.todo);
       this.$store.dispatch("todos/update", this.todo);
       this.editMode = false;
     },
     markUnfinished() {
-      console.log("mark unfinished");
       this.todo.completed = false;
       this.saveChanges();
     }

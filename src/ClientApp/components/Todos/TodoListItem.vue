@@ -1,7 +1,6 @@
 <template>
   <div class="todo-item" :class="completedClass(todo)">
     <div class="content">
-      <!-- <p class="title">{{todo.title}}</p> -->
       <TodoTitle class="todo-title" :todo="todo" />
       <!-- <p class="subtitle">Subtitle</p> -->
     </div>
@@ -73,9 +72,6 @@ export default {
   margin: 0;
 }
 
-/* .todo-item p.title {
-  font-size: 14pt;
-} */
 .todo-item p.subtitle {
   font-size: 9pt;
 }

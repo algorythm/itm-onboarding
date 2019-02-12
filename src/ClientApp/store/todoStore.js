@@ -44,7 +44,6 @@ export default {
             });
         },
         update(context, todo) {
-            console.log("will now update", todo)
             VueInstance.axios.put(`/api/todo/${todo.id}`, todo).then(response => {
                 context.dispatch('refresh');
             });
