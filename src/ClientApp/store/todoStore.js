@@ -18,9 +18,6 @@ export default {
         add(state, todo) {
             state.todos.push(todo)
         },
-        // remove(state, todo) {
-        //     state.todos = state.todos.filter(item => item.id != todo.id);
-        // },
         complete(state, todo) {
             state.todos[state.todos.indexOf(todo)].completed = true;
         }

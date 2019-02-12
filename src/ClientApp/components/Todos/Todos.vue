@@ -17,7 +17,6 @@
     <br>
 
     <form v-on:submit.prevent>
-        <!-- <input v-model="newTodoItem.title" /> -->
         <input v-model="newTodoTitle" />
         <input type="submit" @click="addTodo" value="Add">
     </form>
@@ -57,7 +56,6 @@ export default {
     },
     data() {
         return {
-            // newTodoItem: { title: "", completed: false },
             newTodoTitle: "",
         };
     }
