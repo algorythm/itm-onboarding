@@ -3,12 +3,24 @@
     <h1>Todos</h1>
     <div class="loading" v-if="todos.length === 0">Loading todos...</div>
     <div class="todobox" v-if="todos.length > 0">
-        <ul class="todo-list">
-            <li :class="[completedClass(todo), 'todo-item']" v-for="todo in todos" :key="todo.id">
-                <p>{{todo.title}}</p>
-            </li>
-        </ul>
+        <div class="todo-list">
+            <div :class="[completedClass(todo), 'todo-item']" v-for="todo in todos" :key="todo.id">
+                <p>{{todo.title}} <button style="float: right;" @click="removeTodo(todo)">Remove</button></p>
+            </div>
+        </div>
     </div>
+
+    <!-- <form>
+        <input type="text" v-model="newTodoItem" />
+        <input type="submit" value="Create Todo" />
+        {{newTodoItem}}
+    </form> -->
+    <br>
+    <form v-on:submit.prevent>
+        <!-- <input v-model="newTodoItem.title" /> -->
+        <input v-model="newTodoTitle" />
+        <input type="submit" @click="addTodo" value="Add">
+    </form>
 </div>
 </template>
 
@@ -20,6 +32,9 @@ export default {
     computed: {
         todos() {
             return this.$store.state.todos.todos;
+        },
+        newTodoItem() {
+            return { title: this.newTodoTitle, completed: false, };
         }
     },
     methods: {
@@ -27,11 +42,21 @@ export default {
             this.$store.dispatch("todos/refresh");
         },
         addTodo() {
-            this.$store.dispatch("todos/add", todo);
+            this.$store.dispatch("todos/add", this.newTodoItem);
+            this.newTodoTitle = "";
+        },
+        removeTodo(todo) {
+            this.$store.dispatch("todos/remove", todo);
         },
         completedClass(todo) {
             return todo.completed ? "todo-completed" : "";
         }
+    },
+    data() {
+        return {
+            // newTodoItem: { title: "", completed: false },
+            newTodoTitle: "",
+        };
     }
 }
 </script>
@@ -65,6 +90,10 @@ export default {
     margin: auto;
     padding: 16px;
     display: inline-flex;
+}
+
+.todo-item p button {
+    align-self: stretch;
 }
 
 .todo-item::after {

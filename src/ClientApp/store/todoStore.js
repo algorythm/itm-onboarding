@@ -17,6 +17,9 @@ export default {
         },
         add(state, todo) {
             state.todos.push(todo)
+        },
+        remove(state, todo) {
+            state.todos = state.todos.filter(item => item.id != todo.id);
         }
     },
     actions: {
@@ -26,12 +29,15 @@ export default {
              });
         },
         add(context, todo) {
-            VueInstance.axios({
-                method: 'post',
-                url: '/api/todo',
-                data: todo
-            }).then(response => {
-                context.commit('add', todo);
+            VueInstance.axios.push('/api/todo/', todo).then(response => {
+                context.commit('add', response.data);
+            });
+        },
+        remove(context, todo) {
+            console.log(`will remove todo ${todo.id}`);
+            VueInstance.axios.delete(`/api/todo/${todo.id}`).then(response => {
+                console.log("Deleted todo");
+                context.dispatch('refresh');
             });
         }
 
