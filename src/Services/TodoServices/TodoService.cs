@@ -65,6 +65,8 @@ namespace todoProject.Services.TodoServices
             originalTodo.Title = updatedTodo.Title;
             originalTodo.Done  = updatedTodo.Completed;
 
+            await _context.SaveChangesAsync();
+
             return _mapper.Map<TodoListDto>(originalTodo);
         }
     }
