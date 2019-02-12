@@ -8,19 +8,17 @@
           <TodoListItem :todo="todo"/>
         </div>
       </div>
+      <TodoCreateForm/>
     </div>
 
     <br>
 
-    <form v-on:submit.prevent>
-      <input v-model="newTodoTitle">
-      <input type="submit" @click="addTodo" value="Add">
-    </form>
   </div>
 </template>
 
 <script>
 import TodoListItem from "./TodoListItem.vue";
+import TodoCreateForm from "./TodoCreateForm.vue";
 
 export default {
   mounted() {
@@ -29,27 +27,16 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos.todos;
-    },
-    newTodoItem() {
-      return { title: this.newTodoTitle, completed: false };
     }
   },
   components: {
-    TodoListItem: TodoListItem
+    TodoListItem: TodoListItem,
+    TodoCreateForm: TodoCreateForm
   },
   methods: {
     refreshTodos() {
       this.$store.dispatch("todos/refresh");
-    },
-    addTodo() {
-      this.$store.dispatch("todos/add", this.newTodoItem);
-      this.newTodoTitle = "";
     }
-  },
-  data() {
-    return {
-      newTodoTitle: ""
-    };
   }
 };
 </script>
@@ -57,8 +44,6 @@ export default {
 <style scoped>
 .todobox {
   min-width: 500px;
-  padding: 12px 0;
-
   background: #fff;
   border-radius: 2px;
   display: inline-block;
