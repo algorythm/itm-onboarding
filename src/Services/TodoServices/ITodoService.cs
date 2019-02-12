@@ -8,5 +8,6 @@ namespace todoProject.Services.TodoServices
         Task<TodoListDto[]> GetAllTodosAsync();
         Task<TodoListDto> GetById(int id);
         Task<TodoListDto> CreateTodoAsync(TodoListDto todo);
+        Task<TodoListDto> DeleteTodoAsync(int id);
     }
 }

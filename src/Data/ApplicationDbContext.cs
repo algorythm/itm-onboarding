@@ -21,5 +21,10 @@ namespace todoProject.Data {
             
             builder.ApplyConfiguration(new TodoConfiguration());
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
     }
 }

@@ -43,5 +43,12 @@ namespace todoProject.Controllers
 
             return CreatedAtRoute("GetTodoById", new { id = todo.Id }, todo);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodoAsync(int id)
+        {
+            await _todoService.DeleteTodoAsync(id);
+            return NoContent();
+        }
     }
 }
