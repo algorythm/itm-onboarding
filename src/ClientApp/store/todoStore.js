@@ -18,8 +18,11 @@ export default {
         add(state, todo) {
             state.todos.push(todo)
         },
-        remove(state, todo) {
-            state.todos = state.todos.filter(item => item.id != todo.id);
+        // remove(state, todo) {
+        //     state.todos = state.todos.filter(item => item.id != todo.id);
+        // },
+        complete(state, todo) {
+            state.todos[state.todos.indexOf(todo)].completed = true;
         }
     },
     actions: {
@@ -34,13 +37,15 @@ export default {
             });
         },
         remove(context, todo) {
-            console.log(`will remove todo ${todo.id}`);
             VueInstance.axios.delete(`/api/todo/${todo.id}`).then(response => {
-                console.log("Deleted todo");
                 context.dispatch('refresh');
             });
-        }
-
+        },
+        complete(context, todo) {
+            VueInstance.axios.patch(`/api/todo/${todo.id}/complete`).then(response => {
+                context.commit('complete', todo);
+            });
+        },
     }
 
 }

@@ -5,17 +5,17 @@
     <div class="todobox" v-if="todos.length > 0">
         <div class="todo-list">
             <div :class="[completedClass(todo), 'todo-item']" v-for="todo in todos" :key="todo.id">
-                <p>{{todo.title}} <button style="float: right;" @click="removeTodo(todo)">Remove</button></p>
+                <p>
+                    {{todo.title}}
+                    <button @click="removeTodo(todo)">Remove</button>
+                    <button @click="completeTodo(todo)" v-if="!todo.completed">Complete</button>
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- <form>
-        <input type="text" v-model="newTodoItem" />
-        <input type="submit" value="Create Todo" />
-        {{newTodoItem}}
-    </form> -->
     <br>
+
     <form v-on:submit.prevent>
         <!-- <input v-model="newTodoItem.title" /> -->
         <input v-model="newTodoTitle" />
@@ -50,7 +50,10 @@ export default {
         },
         completedClass(todo) {
             return todo.completed ? "todo-completed" : "";
-        }
+        },
+        completeTodo(todo) {
+            this.$store.dispatch("todos/complete", todo);
+        },
     },
     data() {
         return {
