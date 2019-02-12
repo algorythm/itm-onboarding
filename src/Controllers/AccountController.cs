@@ -77,6 +77,7 @@ namespace todoProject.Controllers {
         {
             var claims = new[]
             {
+                new Claim(ClaimTypes.Name, email),
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
