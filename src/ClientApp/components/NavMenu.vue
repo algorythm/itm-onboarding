@@ -8,12 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">todoProject</a>
+                <router-link to="/">
+                    <p class="navbar-brand">Todo Anders</p>
+                </router-link>
             </div>
             <div class="clearfix"></div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
                     <li v-if="!isLoggedIn">
                         <router-link to="/login">
                             <span class="glyphicon glyphicon-th-list"></span> Login
@@ -22,26 +23,6 @@
                     <li v-if="!isLoggedIn">
                         <router-link to="/register">
                             <span class="glyphicon glyphicon-th-list"></span> Register
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn">
-                        <router-link to="/" :exact="true">
-                            <span class="glyphicon glyphicon-home"></span> Home
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn">
-                        <router-link to="/counter">
-                            <span class="glyphicon glyphicon-education"></span> Counter
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn">
-                        <router-link to="/fetchdata">
-                            <span class="glyphicon glyphicon-th-list"></span> Fetch data
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn">
-                        <router-link to="/books">
-                            <span class="glyphicon glyphicon-th-list"></span> Books
                         </router-link>
                     </li>
                     <li v-if="isLoggedIn">
@@ -60,15 +41,10 @@
 </template>
 
 <script>
-    import BookFavorites from './Books/BookFavorites.vue';
     import { mapGetters } from 'vuex';
 
 
     export default {
-        components: {
-            bookfavorites: BookFavorites
-        },
-
         computed: {
             isLoggedIn() {
                 return this.$store.getters['account/isLoggedIn'];
