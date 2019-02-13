@@ -50,11 +50,7 @@ namespace todoProject.Services.TodoServices
             var todo = await _context.Todos
                 .FindAsync(id);
             
-            if (todo.Owner.Id != currentUser.Id) 
-            {
-                // TODO: Throw an exception about not having access or something
-                return null;
-            }
+            if (todo.Owner.Id != currentUser.Id) return null;
             
             return _mapper.Map<TodoListDto>(todo);
         }
@@ -66,12 +62,7 @@ namespace todoProject.Services.TodoServices
             var todo = await _context.Todos.FindAsync(id);
 
             if (todo == null) return;
-
-            if (todo.Owner.Id != currentUser.Id)
-            {
-                // TODO: Throw an exception about not having access or something
-                return;
-            }
+            if (todo.Owner.Id != currentUser.Id) return;
 
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
@@ -83,12 +74,7 @@ namespace todoProject.Services.TodoServices
             var originalTodo = await _context.Todos.FindAsync(updatedTodo.Id);
 
             if (originalTodo == null) return null;
-
-            if (originalTodo.Owner.Id != currentUser.Id)
-            {
-                // TODO: Throw an exception about not having access or something
-                return null;
-            }
+            if (originalTodo.Owner.Id != currentUser.Id) return null;
 
             originalTodo.Title = updatedTodo.Title;
             originalTodo.Done  = updatedTodo.Completed;
