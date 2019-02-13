@@ -8,11 +8,11 @@ namespace todoProject.Data.EfConfigurations
     {
         public void Configure(EntityTypeBuilder<Todo> builder)
         {
-            builder
-                .HasKey(t => t.Id);
-            builder
-                .Property(t => t.Title)
-                    .IsRequired();
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Title).IsRequired();
+            builder.HasOne(t => t.Owner).WithMany()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 }
