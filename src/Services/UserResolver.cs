@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,14 +18,29 @@ namespace todoProject.Services
 
         public async Task<IdentityUser> GetCurrentUserAsync()
         {
-            var claimsPrincipal = _context.HttpContext.User;
-            if (claimsPrincipal == null) return null;
-            if (claimsPrincipal.Identity.Name == null) return null;
-            if (claimsPrincipal.Identity.IsAuthenticated == false) return null; 
+            if (CurrentClaimsPrincipal == null) return null;
+            if (CurrentClaimsPrincipal.Identity.Name == null) return null;
+            if (CurrentClaimsPrincipal.Identity.IsAuthenticated == false) return null; 
 
-            var email = claimsPrincipal.Identity.Name;
+            var email = CurrentClaimsPrincipal.Identity.Name;
 
             return await _userManager.FindByEmailAsync(email);
+        }
+
+        public ClaimsPrincipal CurrentClaimsPrincipal
+        {
+            get
+            {
+                return _context.HttpContext.User;
+            }
+        }
+
+        public string CurrentUserId
+        {
+            get
+            {
+                return CurrentClaimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
         }
     }
 }

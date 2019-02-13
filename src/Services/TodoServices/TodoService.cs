@@ -22,10 +22,8 @@ namespace todoProject.Services.TodoServices
 
         public async Task<TodoListDto> CreateTodoAsync(TodoListDto todo)
         {
-            var currentUser = await _userResolver.GetCurrentUserAsync();
-
             var todoToCreate = _mapper.Map<Todo>(todo);
-            todoToCreate.Owner = currentUser;
+            todoToCreate.OwnerId = _userResolver.CurrentUserId;
 
             await _context.AddAsync(todoToCreate);
             await _context.SaveChangesAsync();
@@ -35,10 +33,8 @@ namespace todoProject.Services.TodoServices
 
         public async Task<TodoListDto[]> GetAllTodosAsync()
         {
-            var currentUser = await _userResolver.GetCurrentUserAsync();
-
             var todos = await _context.Todos
-                .Where(t => t.OwnerId == currentUser.Id)
+                .Where(t => t.OwnerId == _userResolver.CurrentUserId)
                 .ToArrayAsync();
             
             return _mapper.Map<TodoListDto[]>(todos);
@@ -57,12 +53,10 @@ namespace todoProject.Services.TodoServices
 
         public async Task DeleteTodoAsync(int id)
         {
-            var currentUser = await _userResolver.GetCurrentUserAsync();
-
             var todo = await _context.Todos.FindAsync(id);
 
             if (todo == null) return;
-            if (todo.OwnerId != currentUser.Id) return;
+            if (todo.OwnerId != _userResolver.CurrentUserId) return;
 
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
@@ -70,11 +64,10 @@ namespace todoProject.Services.TodoServices
 
         public async Task<TodoListDto> UpdateTodoAsync(TodoListDto updatedTodo)
         {
-            var currentUser = await _userResolver.GetCurrentUserAsync();
             var originalTodo = await _context.Todos.FindAsync(updatedTodo.Id);
 
             if (originalTodo == null) return null;
-            if (originalTodo.Owner.Id != currentUser.Id) return null;
+            if (originalTodo.Owner.Id != _userResolver.CurrentUserId) return null;
 
             originalTodo.Title = updatedTodo.Title;
             originalTodo.Done  = updatedTodo.Completed;

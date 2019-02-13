@@ -69,15 +69,16 @@ namespace todoProject.Controllers {
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            JwtSecurityToken token = GetToken(user.Email);
+            JwtSecurityToken token = GetToken(user.Email, user.Id);
             return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
 
-        private JwtSecurityToken GetToken(string email)
+        private JwtSecurityToken GetToken(string email, string id)
         {
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, email),
+                new Claim(ClaimTypes.NameIdentifier, id),
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
