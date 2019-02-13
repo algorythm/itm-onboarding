@@ -5,6 +5,6 @@ namespace todoProject.Services
 {
     public interface IUserResolver
     {
-        Task<IdentityUser> GetCurrentUser();
+        Task<IdentityUser> GetCurrentUserAsync();
     }
 }

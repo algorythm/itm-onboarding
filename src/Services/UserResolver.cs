@@ -15,7 +15,7 @@ namespace todoProject.Services
             _userManager = userManager;
         }
 
-        public async Task<IdentityUser> GetCurrentUser()
+        public async Task<IdentityUser> GetCurrentUserAsync()
         {
             var claimsPrincipal = _context.HttpContext.User;
             if (claimsPrincipal == null) return null;
