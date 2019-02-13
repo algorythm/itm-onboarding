@@ -1,7 +1,7 @@
 <template>
   <div class="todo-item" :class="completedClass(todo)">
     <div class="content">
-      <p class="title">{{todo.title}}</p>
+      <TodoTitle class="todo-title" :todo="todo" />
       <!-- <p class="subtitle">Subtitle</p> -->
     </div>
     <div class="button-group">
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import TodoTitle from './TodoTitle.vue';
+
 export default {
   props: ["todo"],
   methods: {
@@ -36,6 +38,9 @@ export default {
     newTodoItem() {
       return { title: this.newTodoTitle, completed: false };
     }
+  },
+  components: {
+    TodoTitle: TodoTitle
   },
   data() {
     return {
@@ -65,10 +70,6 @@ export default {
 
 .todo-item p {
   margin: 0;
-}
-
-.todo-item p.title {
-  font-size: 14pt;
 }
 
 .todo-item p.subtitle {
