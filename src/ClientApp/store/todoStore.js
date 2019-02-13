@@ -43,6 +43,11 @@ export default {
                 context.commit('complete', todo);
             });
         },
+        update(context, todo) {
+            VueInstance.axios.put(`/api/todo/${todo.id}`, todo).then(response => {
+                context.dispatch('refresh');
+            });
+        }
     }
 
 }
