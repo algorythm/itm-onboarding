@@ -12,6 +12,7 @@ namespace todoProject.Data.EfConfigurations
             builder.Property(t => t.Title).IsRequired();
             builder.HasOne(t => t.Owner).WithMany()
                 .OnDelete(DeleteBehavior.Cascade)
+                .HasForeignKey(t => t.OwnerId)
                 .IsRequired();
         }
     }
