@@ -44,7 +44,7 @@ namespace todoProject.Controllers {
                 if (result.Succeeded == false)
                     return BadRequest("Invalid password");
 
-                JwtSecurityToken token = GetToken(user.Email);
+                JwtSecurityToken token = GetToken(user.Email, user.Id);
                 return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
             }
 
