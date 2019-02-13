@@ -38,7 +38,7 @@ namespace todoProject.Services.TodoServices
             var currentUser = await _userResolver.GetCurrentUserAsync();
 
             var todos = await _context.Todos
-                .Where(t => t.Owner.Id == currentUser.Id)
+                .Where(t => t.OwnerId == currentUser.Id)
                 .ToArrayAsync();
             
             return _mapper.Map<TodoListDto[]>(todos);
@@ -50,7 +50,7 @@ namespace todoProject.Services.TodoServices
             var todo = await _context.Todos
                 .FindAsync(id);
             
-            if (todo.Owner.Id != currentUser.Id) return null;
+            if (todo.OwnerId != currentUser.Id) return null;
             
             return _mapper.Map<TodoListDto>(todo);
         }
@@ -62,7 +62,7 @@ namespace todoProject.Services.TodoServices
             var todo = await _context.Todos.FindAsync(id);
 
             if (todo == null) return;
-            if (todo.Owner.Id != currentUser.Id) return;
+            if (todo.OwnerId != currentUser.Id) return;
 
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
