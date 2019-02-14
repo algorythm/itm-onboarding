@@ -4,3 +4,17 @@
         padding-top: 50px;
     }
 }
+
+
+
+.badge-danger {
+    background-color: #dc3545;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+}
