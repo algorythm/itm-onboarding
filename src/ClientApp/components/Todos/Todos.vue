@@ -13,7 +13,6 @@
     <TodoCreateForm/>
 
     <br>
-    <p class="small">Updated: {{new Date() | moment("dddd, YYYY-MM-DD, HH:mm:ss")}}</p>
   </div>
 </template>
 
