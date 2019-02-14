@@ -71,6 +71,7 @@ namespace todoProject.Services.TodoServices
 
             originalTodo.Title = updatedTodo.Title;
             originalTodo.Done  = updatedTodo.Completed;
+            originalTodo.DateExpired = updatedTodo.DateExpired;
 
             await _context.SaveChangesAsync();
 
