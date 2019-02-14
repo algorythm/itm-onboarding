@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Todos</h1>
+    <hr>
     <div class="loading" v-if="todos.length === 0">No todos have been added.</div>
     <div class="todobox" v-if="todos.length > 0">
       <div class="todo-list">
@@ -12,7 +13,7 @@
     <TodoCreateForm/>
 
     <br>
-
+    <p class="small">Updated: {{new Date() | moment("dddd, YYYY-MM-DD, HH:mm:ss")}}</p>
   </div>
 </template>
 
