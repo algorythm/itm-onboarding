@@ -2,7 +2,7 @@
   <div class="todo-item" :class="completedClass(todo)">
     <div class="content">
       <TodoTitle class="todo-title" :todo="todo" />
-      <!-- <p class="subtitle">Subtitle</p> -->
+      <p class="subtitle" v-if="todo.dateExpired != null">Expires: {{ todo.dateExpired | moment("dddd, MMM Do YYYY, HH:mm") }}</p>
     </div>
     <div class="button-group">
       <button class="check" v-if="!todo.completed" @click="completeTodo(todo)">

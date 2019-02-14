@@ -12,7 +12,7 @@ Vue.use(VueAxios, Axios);
 // Router
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-
+Vue.use(require('vue-moment'));
 
 import Router from './router';
 import Store from './store/store'
