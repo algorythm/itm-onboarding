@@ -7,7 +7,6 @@ count=$(wc -w <<< $projects)
 
 if [ $count -eq "1" ]; then
     echo "Using project $projects"
-    # project=$projects
     project=$migrationProjects
     projectDir=$(dirname $projects)
     echo;
@@ -16,9 +15,6 @@ else
     exit 1
 fi
 
-# for project in $projects; do
-
-# echo "Finding projects in $project"
 latestFiles=$(find $project -type f | sort -n | grep -v "ContextModelSnapshot.cs" | grep -v ".Designer.cs" | tail -2 | cut -f2- -d" ")
 fileName=${latestFiles#$project}
 migrations=$(echo $fileName | sed -e "s/$*.cs$//" -e "s/^\/*//")
