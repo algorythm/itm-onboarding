@@ -3,6 +3,7 @@
     <form v-on:submit.prevent>
       <div class="form-group">
         <input v-model="newTodoTitle" class="form-control" aria-describedby="titleHelp" placeholder="Remember to empty the dishwasher">
+        <date-picker v-model="date" :config="options"></date-picker>
         <button @click="addTodo" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus"></span>
         </button>
@@ -15,10 +16,18 @@
 </template>
 
 <script>
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
 export default {
   data() {
     return {
-      newTodoTitle: ""
+      newTodoTitle: "",
+      date: new Date(),
+      options: {
+        format: "YYYY-MM-DD",
+        useCurrent: false,
+      }
     };
   },
   methods: {
@@ -31,7 +40,10 @@ export default {
     newTodoItem() {
       return { title: this.newTodoTitle, completed: false };
     }
-  }
+  },
+  components: {
+    datePicker,
+  },
 };
 </script>
 

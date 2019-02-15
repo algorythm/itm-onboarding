@@ -1,13 +1,15 @@
 <template>
   <div>
     <h1>Todos</h1>
-    <hr />
+    <hr>
     <div class="loading" v-if="todos.length === 0">No todos have been added.</div>
     <div class="todobox" v-if="todos.length > 0">
       <div class="todo-list">
-        <div v-for="todo in todos" :key="todo.id">
-          <TodoListItem :todo="todo"/>
-        </div>
+        <draggable v-model="todos" :list="todos" @change="orderChanged">
+          <div v-for="todo in todos" :key="todo.id">
+            <TodoListItem :todo="todo"/>
+          </div>
+        </draggable>
       </div>
     </div>
     <TodoCreateForm/>
@@ -19,10 +21,17 @@
 <script>
 import TodoListItem from "./TodoListItem.vue";
 import TodoCreateForm from "./TodoCreateForm.vue";
+import draggable from "vuedraggable";
 
 export default {
   mounted() {
     this.$store.dispatch("todos/refresh");
+    this.todoList = this.$store.state.todos.todos;
+  },
+  data() {
+    return {
+      todoList: []
+    };
   },
   computed: {
     todos() {
@@ -31,12 +40,17 @@ export default {
   },
   components: {
     TodoListItem: TodoListItem,
-    TodoCreateForm: TodoCreateForm
+    TodoCreateForm: TodoCreateForm,
+    draggable
   },
   methods: {
     refreshTodos() {
       this.$store.dispatch("todos/refresh");
-    }
+    },
+    orderChanged(obj) {
+      console.log("Changed order:", obj.moved);
+      this.$store.dispatch("todos/move", obj.moved);
+    },
   }
 };
 </script>
