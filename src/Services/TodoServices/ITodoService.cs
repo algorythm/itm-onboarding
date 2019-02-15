@@ -10,5 +10,6 @@ namespace todoProject.Services.TodoServices
         Task<TodoListDto> CreateTodoAsync(TodoListDto todo);
         Task DeleteTodoAsync(int id);
         Task<TodoListDto> UpdateTodoAsync(TodoListDto updatedTodo);
+        Task MoveTodoAsync(MoveTodoDto move);
     }
 }

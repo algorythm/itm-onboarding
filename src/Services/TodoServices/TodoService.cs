@@ -28,6 +28,10 @@ namespace todoProject.Services.TodoServices
             await _context.AddAsync(todoToCreate);
             await _context.SaveChangesAsync();
 
+            todoToCreate.Priority = todoToCreate.Id * 1000;
+
+            await _context.SaveChangesAsync();
+
             return _mapper.Map<TodoListDto>(todoToCreate);
         }
 
@@ -35,6 +39,7 @@ namespace todoProject.Services.TodoServices
         {
             var todos = await _context.Todos
                 .Where(t => t.OwnerId == _userResolver.CurrentUserId)
+                .OrderBy(t => t.Priority)
                 .ToArrayAsync();
             
             return _mapper.Map<TodoListDto[]>(todos);
@@ -76,6 +81,67 @@ namespace todoProject.Services.TodoServices
             await _context.SaveChangesAsync();
 
             return _mapper.Map<TodoListDto>(originalTodo);
+        }
+
+        public async Task MoveTodoAsync(MoveTodoDto move)
+        {
+            var currentTodos = _mapper.Map<Todo[]>(await GetAllTodosAsync());
+            // var currentTodoToMove = currentTodos.FirstOrDefault(t => t.Id == move.element.Id);
+            var currentTodoToMove = await _context.Todos.FindAsync(move.element.Id);
+
+            if (move.element.Id != currentTodos[move.oldIndex].Id)
+            {
+                // The order has changed during the move and this request
+                return;
+            }
+            if (currentTodos.Length == 0 || currentTodos.Length == 1)
+            {
+                return;
+            }
+            if (currentTodoToMove == null)
+            {
+                return;
+            }
+
+            // Todo todoAfterNewPosition = null;
+            // Todo todoBeforeNewPosition = null;
+            
+            if (move.newIndex == 0) 
+            {
+                var todoAfterNewPosition = currentTodos[1];
+                currentTodoToMove.Priority = todoAfterNewPosition.Priority / 2;
+            }
+            else if (move.newIndex == currentTodos.Length + 1)
+            {
+                var todoBeforeNewPosition = currentTodos[move.newIndex - 1];
+                currentTodoToMove.Priority = todoBeforeNewPosition.Priority + 1000;
+            }
+            else
+            {
+                var todoBeforeNewPosition = currentTodos[move.newIndex];
+                var todoAfterNewPosition  = currentTodos[move.newIndex + 1];
+
+                // var subtractedPriority = todoAfterNewPosition.Priority - todoBeforeNewPosition.Priority;
+                var priorityToadd = (todoAfterNewPosition.Priority - todoBeforeNewPosition.Priority) / 2;
+
+                if (priorityToadd == 0)
+                {
+                    priorityToadd = 100;
+                }
+
+                currentTodoToMove.Priority = todoBeforeNewPosition.Priority + priorityToadd;
+                
+                // var newPriority = subtractedPriority / 2;
+
+                // if (newPriority == 0)
+                // {
+                //     newPriority = 1000;
+                // }
+
+                // currentTodoToMove.Priority = todoBeforeNewPosition.Priority + newPriority;
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

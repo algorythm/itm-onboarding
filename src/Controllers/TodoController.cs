@@ -89,5 +89,22 @@ namespace todoProject.Controllers
             
             return Ok(updatedTodo);
         }
+
+        [HttpPost("move/{id}")]
+        public async Task<IActionResult> MoveTodoAsync(int id, [FromBody] MoveTodoDto move)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("The given model is invalid.");
+            }
+            if (id != move.element.Id)
+            {
+                return BadRequest("The given id has to match the id in the move's element.");
+            }
+
+            await _todoService.MoveTodoAsync(move);
+
+            return Ok();
+        }
     }
 }
