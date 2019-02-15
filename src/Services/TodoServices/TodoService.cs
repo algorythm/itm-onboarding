@@ -86,7 +86,6 @@ namespace todoProject.Services.TodoServices
         public async Task MoveTodoAsync(MoveTodoDto move)
         {
             var currentTodos = _mapper.Map<Todo[]>(await GetAllTodosAsync());
-            // var currentTodoToMove = currentTodos.FirstOrDefault(t => t.Id == move.element.Id);
             var currentTodoToMove = await _context.Todos.FindAsync(move.element.Id);
 
             if (move.element.Id != currentTodos[move.oldIndex].Id)
@@ -118,27 +117,28 @@ namespace todoProject.Services.TodoServices
             }
             else
             {
-                var todoBeforeNewPosition = currentTodos[move.newIndex];
-                var todoAfterNewPosition  = currentTodos[move.newIndex + 1];
+                Todo todoBeforeNewPosition = null;
+                Todo todoAfterNewPosition  = null;
 
-                // var subtractedPriority = todoAfterNewPosition.Priority - todoBeforeNewPosition.Priority;
-                var priorityToadd = (todoAfterNewPosition.Priority - todoBeforeNewPosition.Priority) / 2;
-
-                if (priorityToadd == 0)
+                if (move.newIndex > move.oldIndex)
                 {
-                    priorityToadd = 100;
+                    todoBeforeNewPosition = currentTodos[move.newIndex];
+                    todoAfterNewPosition = currentTodos[move.newIndex + 1];
+                }
+                else
+                {
+                    todoBeforeNewPosition = currentTodos[move.newIndex - 1];
+                    todoAfterNewPosition = currentTodos[move.newIndex];
                 }
 
-                currentTodoToMove.Priority = todoBeforeNewPosition.Priority + priorityToadd;
-                
-                // var newPriority = subtractedPriority / 2;
+                var priorityToAdd = (todoAfterNewPosition.Priority - todoBeforeNewPosition.Priority) / 2;
 
-                // if (newPriority == 0)
-                // {
-                //     newPriority = 1000;
-                // }
+                if (priorityToAdd == 0)
+                {
+                    priorityToAdd = 100;
+                }
 
-                // currentTodoToMove.Priority = todoBeforeNewPosition.Priority + newPriority;
+                currentTodoToMove.Priority = todoBeforeNewPosition.Priority + priorityToAdd;
             }
 
             await _context.SaveChangesAsync();
