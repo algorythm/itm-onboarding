@@ -186,7 +186,7 @@ namespace todoProject.Data.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(new DateTime(2019, 2, 14, 15, 48, 56, 532, DateTimeKind.Local));
+                        .HasDefaultValue(new DateTime(2019, 2, 15, 8, 3, 24, 683, DateTimeKind.Local));
 
                     b.Property<DateTime?>("DateExpired");
 
@@ -197,7 +197,7 @@ namespace todoProject.Data.Migrations
                     b.Property<string>("OwnerId")
                         .IsRequired();
 
-                    b.Property<int>("Priority");
+                    b.Property<double>("Priority");
 
                     b.Property<string>("Title")
                         .IsRequired();

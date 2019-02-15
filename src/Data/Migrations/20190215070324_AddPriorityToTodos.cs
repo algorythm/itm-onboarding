@@ -13,16 +13,16 @@ namespace todoProject.Data.Migrations
                 table: "Todos",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2019, 2, 14, 15, 48, 56, 532, DateTimeKind.Local),
+                defaultValue: new DateTime(2019, 2, 15, 8, 3, 24, 683, DateTimeKind.Local),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 2, 13, 17, 1, 18, 912, DateTimeKind.Local));
 
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AddColumn<double>(
                 name: "Priority",
                 table: "Todos",
-                type: "int",
+                type: "float",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0.0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -38,7 +38,7 @@ namespace todoProject.Data.Migrations
                 defaultValue: new DateTime(2019, 2, 13, 17, 1, 18, 912, DateTimeKind.Local),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2019, 2, 14, 15, 48, 56, 532, DateTimeKind.Local));
+                oldDefaultValue: new DateTime(2019, 2, 15, 8, 3, 24, 683, DateTimeKind.Local));
         }
     }
 }
