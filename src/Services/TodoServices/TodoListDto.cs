@@ -10,7 +10,6 @@ namespace todoProject.Services.TodoServices
         public string Title { get; set; }
         [Required]
         public bool Completed { get; set; }
-        public int Priority { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public DateTime? DateExpired { get; set; }
