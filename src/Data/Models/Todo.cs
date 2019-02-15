@@ -9,6 +9,7 @@ namespace todoProject.Data.Models
         public string Title { get; set; }
         public bool Done { get; set; } = false;
         public string OwnerId { get; set; }
+        public int Priority { get; set; }
         public virtual IdentityUser Owner { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
