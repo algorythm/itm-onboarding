@@ -107,12 +107,12 @@ namespace todoProject.Services.TodoServices
             
             if (move.newIndex == 0) 
             {
-                var todoAfterNewPosition = currentTodos[1];
+                var todoAfterNewPosition = currentTodos[0];
                 currentTodoToMove.Priority = todoAfterNewPosition.Priority / 2;
             }
-            else if (move.newIndex == currentTodos.Length + 1)
+            else if (move.newIndex == currentTodos.Length - 1)
             {
-                var todoBeforeNewPosition = currentTodos[move.newIndex - 1];
+                var todoBeforeNewPosition = currentTodos[move.newIndex];
                 currentTodoToMove.Priority = todoBeforeNewPosition.Priority + 1000;
             }
             else
