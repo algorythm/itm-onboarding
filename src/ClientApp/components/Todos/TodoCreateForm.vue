@@ -3,7 +3,7 @@
     <form v-on:submit.prevent>
       <div class="form-group">
         <input v-model="newTodoTitle" class="form-control" aria-describedby="titleHelp" placeholder="Remember to empty the dishwasher">
-        <date-picker v-model="date" :config="options"></date-picker>
+        <date-picker v-model="date" :config="options" placeholder="Expiration date"></date-picker>
         <button @click="addTodo" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus"></span>
         </button>
@@ -23,9 +23,10 @@ export default {
   data() {
     return {
       newTodoTitle: "",
-      date: new Date(),
+      date: null,
       options: {
-        format: "YYYY-MM-DD",
+        // format: "dddd, MMM Do YYYY, HH:mm",
+        format: "YYYY-MM-DDTHH:mm:ss",
         useCurrent: false,
       }
     };
@@ -38,7 +39,7 @@ export default {
   },
   computed: {
     newTodoItem() {
-      return { title: this.newTodoTitle, completed: false };
+      return { title: this.newTodoTitle, completed: false, dateExpired: this.date };
     }
   },
   components: {
