@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Todos</h1>
+    <hr />
     <div class="loading" v-if="todos.length === 0">No todos have been added.</div>
     <div class="todobox" v-if="todos.length > 0">
       <div class="todo-list">
@@ -12,7 +13,6 @@
     <TodoCreateForm/>
 
     <br>
-
   </div>
 </template>
 

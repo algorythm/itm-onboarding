@@ -33,7 +33,6 @@
                     <li v-if="isLoggedIn">
                         <a @click="logout"><span class="glyphicon glyphicon-th-list"></span> Logout</a>
                     </li>
-                    <bookfavorites></bookfavorites>
                 </ul>
             </div>
         </div>

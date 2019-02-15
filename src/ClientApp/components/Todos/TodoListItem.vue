@@ -2,7 +2,10 @@
   <div class="todo-item" :class="completedClass(todo)">
     <div class="content">
       <TodoTitle class="todo-title" :todo="todo" />
-      <!-- <p class="subtitle">Subtitle</p> -->
+      <p class="subtitle" v-if="todo.dateExpired != null && todo.completed == false">
+        <span class="todoStatus badge" :class="expirationStatusClass" v-if="expirationStatus != null">{{expirationStatus}}</span>
+        Expires: {{ todo.dateExpired | moment("dddd, MMM Do YYYY, HH:mm") }}
+      </p>
     </div>
     <div class="button-group">
       <button class="check" v-if="!todo.completed" @click="completeTodo(todo)">
@@ -37,6 +40,38 @@ export default {
     },
     newTodoItem() {
       return { title: this.newTodoTitle, completed: false };
+    },
+    expirationStatus() {
+      const exp = new Date(this.todo.dateExpired);
+      const now = new Date();
+
+      const timeDiffSeconds = (exp.getTime() - now.getTime()) / 1000;
+      const daysLeft = timeDiffSeconds / 86400;
+
+      if (daysLeft < 0) {
+        return this.overdueText;
+      } else if (daysLeft < 1) {
+        return this.todayText;
+      } else if (daysLeft < 2) {
+        return this.tomorrowText;
+      } else if (daysLeft < 7) {
+        return this.weekText;
+      }
+
+      return this.inAWhileText;
+    },
+    expirationStatusClass() {
+      if (this.expirationStatus === this.overdueText) {
+        return "badge-secondary";
+      } else if (this.expirationStatus === this.todayText) {
+        return "badge-danger";
+      } else if (this.expirationStatus === this.tomorrowText) {
+        return "badge-warning";
+      } else if (this.expirationStatus === this.weekText) {
+        return "badge-warning";
+      }
+
+      return "badge-success";
     }
   },
   components: {
@@ -44,7 +79,12 @@ export default {
   },
   data() {
     return {
-      newTodoTitle: ""
+      newTodoTitle: "",
+      overdueText: "overdue",
+      todayText: "< 1 day",
+      tomorrowText: "tomorrow",
+      weekText: "within a week",
+      inAWhileText: "the future"
     };
   }
 };
