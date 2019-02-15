@@ -241,4 +241,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-./resetMigration.sh
+resetMigration.sh
