@@ -48,7 +48,6 @@ export default {
       this.$store.dispatch("todos/refresh");
     },
     orderChanged(obj) {
-      console.log("Changed order:", obj.moved);
       this.$store.dispatch("todos/move", obj.moved);
     },
   }
