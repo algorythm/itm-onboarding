@@ -47,7 +47,12 @@ export default {
             VueInstance.axios.put(`/api/todo/${todo.id}`, todo).then(response => {
                 context.dispatch('refresh');
             });
-        }
-    }
-
+        },
+        move(context, move) {
+            console.log("POSTING the MOVE ORDER");
+            VueInstance.axios.post(`/api/todo/move/${move.element.id}`, move).then(response => {
+                context.dispatch('refresh');
+            });
+        },
+    },
 }
