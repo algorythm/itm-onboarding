@@ -65,6 +65,8 @@ export default {
 #todo-creation-form {
     padding: 8px;
     background-color: rgba(0, 0, 0, 0.12);
+    width: 75%;
+    margin: auto;
 }
 </style>
 

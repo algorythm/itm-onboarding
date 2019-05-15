@@ -1,20 +1,21 @@
 <template>
   <div>
-    <h1>Todos</h1>
+    <h1>Todos {{time}}</h1>
     <hr>
     <div class="loading" v-if="todos.length === 0">No todos have been added.</div>
-    <div class="todobox" v-if="todos.length > 0">
-      <div class="todo-list">
-        <draggable v-model="todos" :list="todos" @change="orderChanged">
-          <div v-for="todo in todos" :key="todo.id">
-            <TodoListItem :todo="todo"/>
-          </div>
-        </draggable>
-      </div>
-    </div>
-    <TodoCreateForm/>
+    <div class="todo-container">
 
-    <br>
+      <div class="todobox" v-if="todos.length > 0">
+        <div class="todo-list">
+          <draggable v-model="todos" :list="todos" @change="orderChanged">
+            <div v-for="todo in todos" :key="todo.id">
+              <TodoListItem :todo="todo"/>
+            </div>
+          </draggable>
+        </div>
+      </div>
+      <TodoCreateForm/>
+    </div>
   </div>
 </template>
 
@@ -36,6 +37,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos.todos;
+    },
+    time() {
+      return Date.now();
     }
   },
   components: {
@@ -56,7 +60,8 @@ export default {
 
 <style scoped>
 .todobox {
-  min-width: 500px;
+  /* min-width: 500px; */
+  width: 100%;
   background: #fff;
   border-radius: 2px;
   display: inline-block;

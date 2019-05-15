@@ -8,7 +8,7 @@
                 <div v-for="error in this.$store.state.errors">
                     {{error.response.data}}
                 </div>
-                <router-view></router-view>
+                <router-view style="margin-right: 30px"></router-view>
             </div>
         </div>
     </div>

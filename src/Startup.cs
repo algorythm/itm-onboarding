@@ -67,7 +67,7 @@ namespace todoProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -80,6 +80,7 @@ namespace todoProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                context.Database.Migrate();
             }
 
             app.UseStaticFiles();

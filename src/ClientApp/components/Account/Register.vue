@@ -6,21 +6,21 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Email</label>
             <div class="col-md-10">
-                <input v-model="email" id="Email" name="Email" class="form-control" type="email"/>
+                <input v-model="email" id="Email" name="Email" class="form-control" type="email" placeholder="john.doe@example.com" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Password</label>
             <div class="col-md-10">
-                <input v-model="password" id="Password" name="Password" class="form-control" type="password"/>
+                <input v-model="password" id="Password" name="Password" class="form-control" type="password" placeholder="MyÜber_S3CUreP4zzw0!d" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Confirm password</label>
             <div class="col-md-10">
-                <input v-model="confirmPassword" id="ConfirmPassword" name="ConfirmPassword" class="form-control" type="password" />
+                <input v-model="confirmPassword" id="ConfirmPassword" name="ConfirmPassword" class="form-control" type="password" placeholder="MyÜber_S3CUreP4zzw0!d" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
         </div>
